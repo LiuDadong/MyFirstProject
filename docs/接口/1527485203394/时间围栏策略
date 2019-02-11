@@ -1,0 +1,41 @@
+时间围栏策略：
+
+{
+基本信息
+"id" : 12, 
+"name" : "时间围栏策略",
+"policy_type" : "timefence",
+
+"status" : 1,	 (默认开启)
+"creator" :	admin,
+"available" : 0,   
+"update_time" : "2017-07-17 18:28:44", 
+
+"create_time" : "2017-07-17 18:26:27", 
+"md5": 
+
+围栏限制
+"time_limit": {
+	"repeat_type": 1, 			重复类型 : 1每周／2每日／3工作日／4特定日期
+	"start_date": "2017-07-17", 开始日期
+	"stop_date": "2017-07-17",	结束日期
+	"start_time": "18:28:44",	开始时间
+	"stop_time": "18:26:27",	结束时间
+	"weekday": 3,			    若重复类型为每周，则传星期的值 : 1周一／2周二／3周三／4周四／5周五／6周六／7周日
+	}
+
+围栏内策略
+# "in_fence": 23,(设备策略id)
+"in_fence": {
+		"dev_policy": 12,
+		"app_policy": 13   没有为-1
+	}
+
+围栏外策略
+# "out_fence": 24(设备策略id)
+"out_fence": {
+		"dev_policy": 12,
+		"app_policy": 13	没有为-1
+	}
+
+}

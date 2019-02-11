@@ -1,0 +1,18 @@
+设备解绑
+/p/dev/unbindDevice
+	Method: post
+	Params: sid, dev_id(数组["dev_id1", "dev_id2"])
+
+设备淘汰
+/p/dev/eliminateDevice
+	Method: post
+	Params: sid, dev_id(数组["dev_id1", "dev_id2"])
+
+
+
+设备策略模块
+	策略中新增网络限制模块
+		字段为vpnlimit(数据格式详见设备策略)
+
+	策略中的限制策略块中新增禁用应用摄像头控制项
+		字段为camera_control(数据格式详见设备策略)

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin:0;
+        }
+        #svg-box svg{
+            border:1px solid black;
+            margin: 0;
+        }
+    </style>
+    <script src="d3.js"></script>
+</head>
+<body>
+    <div id="svg-box"></div>
+    <script>
+        var dataset=[133,144,233,244,222,243];  //柱形图数据
+        var w=300,h=300;
+        var l=dataset.length;
+        var r=4;  
+        var s=w/(r*l+l+1);
+        var step=s*(r+1);
+        var svg=d3.select('#svg-box')
+                .append('svg')
+                .attr('width',w)
+                .attr('height',h);
+        var max=d3.max(dataset);
+        var linear=d3.scale.linear()
+                    .domain([0,max])
+                    .range([0,h*0.7])
+        var axis=d3.svg.axis()
+                    .scale(linear)
+                    .orient('left')
+                    .ticks(10)
+        
+        svg.selectAll('rect')
+            .data(dataset)
+            .enter()
+            .append('rect')
+            .attr('y',function(d,i){
+                return h-linear(d)-20;
+            })
+            .attr('x',function(d,i){
+                return s+i*step;
+            })
+            .attr('height',function(d,i){
+                return linear(d);
+            })
+            .attr('width',s*r)
+            .attr('fill','blue')
+    </script>
+</body>
+</html>

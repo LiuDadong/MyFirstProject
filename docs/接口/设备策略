@@ -1,0 +1,56 @@
+设备策略：
+
+{
+基本信息
+"id" : 12, 
+"name" : "ttt",
+
+"policy_type" : "device"
+"status" : 1	 (默认开启)
+"creator" :	admin
+
+"available" : 0,   
+"update_time" : "2017-07-17 18:28:44", 
+"create_time" : "2017-07-17 18:26:27", 
+"position_strategy" : XXX  (不允许定位／工作日定位模式／正常定位模式[默认])
+"md5":
+
+锁屏策略
+"dev_security" : { 
+					"pw_min_len" : "6", 		密码最小长度
+					"available_time" : "30", 	密码有效期
+					"pw_fail_count" : "3", 		密码最大尝试次数
+					"passwd_type" : "0", 		密码复杂度要求（1数字／2数字＋字母／3数字＋字母(不区分大小写)）
+				}, 
+
+限制策略
+"dev_limit" : { 
+				"camera" : 1, 			禁止使用相机
+				"camera_control": 1,	禁用应用摄像头(新增)
+				"wifi": 				禁止使用wifi
+				"bluetooth" : 1, 		禁止使用蓝牙		
+				"mobile_data"			禁止使用移动数据
+				"gps" : 1 				强制开启／关闭GPS
+				"recording" : 1, 		禁止录音
+				"screenshot":			禁止截屏
+				"setfactory":			禁止恢复出厂
+				"message": 				禁止使用短信
+				"phone": 				禁止收听电话
+				}, 
+
+网络限制(新增)
+"vpnlimit": {
+				"control": 1,            开启/关闭限制安全空间外网络
+				"limit_apps": ["package_name1", "package_name2", "package_name3"]
+			 }
+
+
+wifi策略
+"wifi" :  {
+			"status": 1,
+			"wifi": [ { "password" : "4145554",  
+					  	"ssid" : "111" }]
+		   }
+}
+
+

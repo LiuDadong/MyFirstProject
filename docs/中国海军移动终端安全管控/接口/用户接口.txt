@@ -1,0 +1,109 @@
+
+    /p/org/orgStatistics
+        __doc__: 获取首页数据
+        args: "sid", "org_id"
+
+
+用户管理
+    /p/user/manage
+        1. method: Get
+            __doc__: 查询机构用户
+            args: "sid", "start_page", "page_length", "org_id", "keyword"
+                  (bz: keyword搜索功能，可按账户，名称，邮箱，手机号搜索(不必要参数))
+        2. method: Post
+            __doc__: 添加机构用户(手动添加)
+            args: "sid", "email", "name", "depart_id", "account", "tag_id", "org_id"
+        3. method: Put
+            __doc__: 编辑机构用户数属性信息
+            args: "sid", "userId", "email", "name", "phone", "depart_id", "tag_id"
+        4. method: Delete
+            __doc__: 删除机构用户
+            args: "sid", "userId"
+                  (bz: userId is array)
+    /p/user/resetUserPw
+        __doc__: 管理员重置用户密码
+        args: "sid", "userId", "pw"
+
+    /p/user/activeInvite
+        __doc__: 激活邀请
+        args: "sid", "userId"
+
+    /p/user/activeDevList
+        __doc__: 查看机构用户已激活的设备信息
+        args: "sid", "userId"
+
+    /p/user/userTagList
+        __doc__: 查看机构用户所属的标签信息
+        args: "sid", "userId"
+
+    /p/user/policyByUserId
+        __doc__: 查看机构用户拥有的策略信息
+        args: "sid", "userId"
+
+    /p/user/templateDownload
+        __doc__: 下载用户批量导入的模版
+
+    /p/user/bulkLoad
+        __doc__: 批量导入用户
+
+
+ 用户组管理
+     /p/depart/manage
+         1. method: Get
+            __doc__: 查询机构用户组
+            args: "sid", "org_id"
+                  (bz: <1>keyword/depart_id为不必要参数，按需封装
+                         <2>keyword搜索功能，按用户组名称搜索,此时不用传depart_id参数
+                         <3>没有keyword参数时，传depart_id参数，根节点depart_id为0)
+        2. method: Post
+            __doc__: 添加用户组
+            args: "sid", "name", "status", "parent_id", "org_id"
+        3. method: Put
+            __doc__: 编辑机构用户组属性信息
+            args: "sid", "departId", "name", "parent_id", "status"
+        4. method: Delete
+            __doc__: 删除机构用户组
+            args: "sid", "departs"
+                  (bz: departs is array for departId)
+
+    /p/depart/memberManage
+        1. method: Get
+           __doc__: 用户组内用户管理: 查询当前用户组的组内人员及组外人员
+           args: "sid", "departId", "org_id"
+        2. method: Post
+           __doc__: 用户组内用户管理: 组内人员变动
+           args: "sid", "departId", "user_list"
+                 (bz: user_list is Array for userId)
+
+    /p/depart/members
+        method: Get
+        __doc:__: 获取用户组内或标签内用户
+        args: "sid", "start_page", "page_length", "org_id", "depart_id", "tag_id"
+
+
+ 用户标签管理
+     /p/tag/manage
+         1. method: Get
+            __doc__: 查询机构用户标签
+            args: "sid", "start_page", "page_length", "org_id", "keyword"
+                  (bz: <1>keyword为不必要参数，按需封装
+                         <2>keyword搜索功能，按用户组名称搜索)
+        2. method: Post
+            __doc__: 添加用户标签
+            args: "sid", "description", "name", "tag_type", "status", "org_id"
+        3. method: Put
+            __doc__: 编辑机构用户标签属性信息
+            args: "sid", "tagId", "name", "description", "status", "tag_type"
+        4. method: Delete
+            __doc__: 删除机构用户标签
+            args: "sid", "tagId"
+                  (bz: tagId is array for tagId)
+    /p/tag/memberManage
+        1. method: Get
+           __doc__: 标签内用户管理：查询当前标签内组内人员及组外人员
+           args: "sid", "tagId", "org_id"
+
+        2. method: Post
+           __doc__: 标签内用户管理：标签内人员变动
+           args: "sid", "tagId", "user_list"
+                    (bz: user_list is Array for userId)

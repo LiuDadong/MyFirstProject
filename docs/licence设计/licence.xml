@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF8"?>
+<license>
+    <product>
+        <name>iam</name>
+        <version>1.5</version>
+        <expire>201X0501 00:00:00</expire>
+    </product>
+    <modules>
+        <module name="commons">
+            <function name="SecurityStrategy" />
+            <function name="PasswordConfig" />
+            <function name="SecurityManagement" />
+            <function name="ServerConfig" />
+            <function name="AccountOnline" />
+            <function name="Administrator" />
+            <function name="AdminManagement" />
+            <function name="SecurityAdmin" />
+            <function name="AdminRoleManagement" />
+            <function name="SystemConfig" />
+            <function name="UploadLicense" />
+            <function name="UploadAttribute" />
+        </module>
+        <module name="commons">
+            <function name="SecurityStrategy" />
+            <function name="PasswordConfig" />
+            <function name="SecurityManagement" />
+            <function name="ServerConfig" />
+            <function name="AccountOnline" />
+            <function name="Administrator" />
+            <function name="AdminManagement" />
+            <function name="SecurityAdmin" />
+            <function name="AdminRoleManagement" />
+            <function name="SystemConfig" />
+            <function name="UploadLicense" />
+            <function name="UploadAttribute" />
+        </module>
+    </modules>
+    <attributes>
+        <attribute name="maxUserNumber">10000</attribute>
+        <attribute name="maxAdminNumber">5</attribute>
+        <attribute name="cipherKey">**************</attribute>
+    </attributes>
+</license>

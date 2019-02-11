@@ -1,0 +1,21 @@
+web应用
+	
+	应用类型(app_type): 
+		移动应用: 	plugin
+		web应用: 	web
+		wrapping应用: wrap
+
+	应用上传
+		/p/app/upload
+			method: post
+			params: 
+				移动应用: "sid", "app_type", "visit_type", "install_type", "describe", "sysRequest", "file", "dev_type", "platform", "apptag", "name"  (app_type为plugin)
+				web应用: "sid", "app_type", "visit_type", "install_type", "apptag", "name", "url" (app_type为web)
+
+	应用编辑
+		/p/app/modify
+			method: post
+			params: 
+				移动应用: "sid", "id", "identify", "sysRequest", "describe", "visit_type", "install_type", "apptag", "name"
+				web应用: "sid", "id", "identify", "visit_type", "install_type", "apptag", "name"
+x

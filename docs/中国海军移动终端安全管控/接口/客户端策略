@@ -1,0 +1,79 @@
+客户端策略
+policy_type : customer
+
+{
+基本信息 
+"id" : 12,
+"status" : 1	 (默认开启)
+"creator" :	admin
+"available" : 1,   
+"update_time" : "2017-07-17 18:28:44", 
+"create_time" : "2017-07-17 18:26:27", 
+
+
+"md5":
+"name" : "客户端策略",
+"policy_type" : "customer",
+
+限制策略
+"clientlimit": {
+			"screenshot": 1,         	安全空间内禁止截屏
+			"forbid_unload": 1,		    安全空间防卸载
+			"clipboard": 1,				安全空间内禁止剪切板
+			"app_keep_alive": 1			安全空间保活
+			},
+
+水印策略
+"watermark": { 
+				"control": 0,			安全空间内开启水印(0关闭／1开启)
+				"font_size": 1,			文字大小
+				"font_color": 0,		字体颜色
+				"font_opacity": 25%,	透明度
+				"font_type": user_name	水印显示类型(company_name/user_name/phone)
+				},
+
+权限策略
+ "permissionItems": {
+				"usageState": 1,
+				"deviceManager": 1,
+				"launcher": 1,
+				"floatWindow": 1,
+				"access": 1,
+				"screenLock": 1,
+				"autoStart": 1, 
+				"basic": 1
+				}
+}
+
+添加客户端策略：
+    /p/org/uploadCusPolicy
+    	method: post
+    	params: "sid", "name", "policy_type", "clientlimit", "watermark", "permissionItems"
+修改客户端策略：
+    /p/org/updateCusPolicy
+    	method: post
+    	params: "sid", "id", "name", "policy_type", "clientlimit", "watermark", "permissionItems"
+删除客户端策略：
+    /p/org/deleteCusPolicy
+    	method: post
+    	params: "sid", "ids", "policy_type"
+    			ids为策略id的数组，[id1, id2, id3]
+显示所有的客户端策略：
+    /p/org/listCusPolicy
+    	method: get
+    	params: "sid", "start_page", "page_length"
+更改客户端策略的状态：
+    /p/org/changeCusPolicyStatus
+    	method: post
+    	params: "sid", "ids", "status", "policy_type"
+    			ids为策略id的数组，[id1, id2, id3]
+获取客户权限：
+    /p/org/getPermissionItems
+    	method: get
+    	param: sid
+
+
+SecSpace获取客户端策略接口：
+	/p/user/getCustomerPolicy
+		method: post
+		params: "sid", "account", "dev_id"

@@ -1,0 +1,1207 @@
+var emmsApp = angular.module('emmsApp', [ 'jsTree.directive', 'ngTable', 'tm.pagination','ngResource','ui.bootstrap', 'angularFileUpload', 'ngDragDrop', 'ui.router', 'highcharts-ng' ]);
+emmsApp.controller('SituationAwarenessCtrl', function($scope, $rootScope, $http, $modal, $interval, $timeout, ngTableParams) {
+	$scope.serverPath = window.service_url;
+	$('#main > div').css('overflow', '');
+	
+	$scope.worldMap = false;
+	
+	$scope.showUser = true;
+	$scope.showTable = true;
+	var citys = [];
+	var line = [];
+	var line_world = [];
+	
+	$scope.refreshFunction = function() {
+		
+		$http.get(window.service_url + '/admin/devices/stats/situation?access_token=' + $('#access_token').val()).success(function(data) {
+			$scope.onlineDevice = data.deviceResult;
+			$scope.allDevice = data.allDevice;
+			$scope.dangerClient = data.dangerClient;
+		});
+		$scope.tableParams = new ngTableParams({
+			page : 1,
+			count : 100,
+			sorting : {
+				updated_at : 'desc'
+			}
+		}, {
+			total : 0,
+			counts : [],
+			getData : function($defer, params) {
+				$('.ng-isolate-scope').css('display','none');
+				var queryLog = {page:1,pageSize:5};
+	        	queryLog.type = 'alert';
+	     //   	queryLog.operationType = 'violation';
+	        	console.info(queryLog)
+	        	$http.get(window.service_url + "/admin/logs/user?access_token="+ $('#access_token').val(),{params:queryLog}).success(function(data){
+	        		$scope.logs = data.logs;
+	        		console.info($scope.logs)
+	        		if($scope.logs.length){
+	        		$.each($scope.logs,function(i,item){
+	        			switch (item.genre){
+	            		case 2049:item.content = 'root/越狱违规';break;
+	        			case 2050:item.content = '密码复杂度违规';break;
+	        			case 2051:item.content = 'SD卡违规';break;
+	        			case 2052:item.content = 'SIM卡违规';break;
+	        			case 2053:item.content = '黑白名单违规';break;
+	        			case 2054:item.content = '必装应用违规';break;
+	        			case 2055:item.content = 'OS版本违规';break;
+	        			case 2056:item.content = '离线违规';break;
+	            		}
+	        		});
+	        		$defer.resolve($scope.logs);
+	        		
+	        		$scope.refreshDeviceInfo($scope.logs[0].udid);
+	        		}
+			});
+			}
+		})
+	};
+	$scope.refreshFunction();
+	
+	$scope.refreshDeviceInfo = function(udid){
+		$http.get(window.service_url + "/admin/devices/" + udid + "?access_token=" + $('#access_token').val()).success(function(data) {
+			$scope.device = data;
+			if($scope.device) 
+				$http.get(window.service_url + "/admin/users/" +$scope.device.owner_id + "/user?access_token=" + $('#access_token').val()).success(function(data){
+					$scope.head_portrait = data.head_portrait +"?"+ Math.random();
+				})
+		});
+		$http.get(window.service_url + "/admin/devices/" + udid + "/infos?access_token=" + $('#access_token').val()).success(function(data) {
+			$scope.deviceInfo = data;
+			if($scope.deviceInfo.freeMemory) $scope.deviceInfo.memory = Math.round($scope.deviceInfo.freeMemory.split('MB')[0]*100 / $scope.deviceInfo.totalMemory.split('MB')[0]);
+			if($scope.deviceInfo.remainingExternalMemory) $scope.deviceInfo.external = Math.round($scope.deviceInfo.remainingExternalMemory.split('MB')[0]*100 / $scope.deviceInfo.totalExternalMemory.split('MB')[0]);
+			$scope.external = $scope.deviceInfo.external;
+		});
+	}
+	
+	$interval(function() {
+		$scope.refreshFunction();
+	}, 10000);
+
+	$scope.changeTable = function(){
+		$scope.showTable = !$scope.showTable;
+		if(!$scope.showTable)
+			$('#securityEvent').css('margin-top',$(document).height()*0.88);
+		else $('#securityEvent').css('margin-top','39%');
+	}
+	
+	$('#main').css({'width':$(document).width(),'height':$(document).height()});
+	$('#all_info').css({'margin-top':$(document).width()*0.12,'margin-left':$(document).height()*0.12});
+	$('#all_info >div').css('margin-bottom',$(document).height()*0.08);
+	window.onresize=function(){
+		$('#main').css('width',$(document).width());
+		$scope.showChina();
+	}
+	var myChart = echarts.init(document.getElementById('main'));
+	
+	var cityList = [
+					{name: '北京',value: 'beijing' },
+					{name: '天津',value: 'tianjin' },
+					{name: '上海',value: 'shanghai' },
+					{name: '重庆',value: 'chongqing' },
+					{name: '河北',value: 'hebei' },
+					{name: '河南',value: 'henan' },
+					{name: '云南',value: 'yunnan' },
+					{name: '辽宁',value: 'liaoning' },
+					{name: '黑龙江',value: 'heilongjiang' },
+					{name: '湖南',value: 'hunan' },
+					{name: '安徽',value: 'anhui' },
+					{name: '山东',value: 'shandong' },
+					{name: '新疆',value: 'xinjiang' },
+					{name: '江苏',value: 'jiangsu' },
+					{name: '浙江',value: 'zhejiang' },
+					{name: '江西',value: 'jiangxi' },
+					{name: '湖北',value: 'hubei' },
+					{name: '广西',value: 'guangxi' },
+					{name: '甘肃',value: 'gansu' },
+					{name: '山西',value: 'shanxi' },
+					{name: '内蒙古',value: 'neimenggu' },
+					{name: '陕西',value: 'shanxi1' },
+					{name: '吉林',value: 'jilin' },
+					{name: '福建',value: 'fujian' },
+					{name: '贵州',value: 'guizhou' },
+					{name: '广东',value: 'guangdong' },
+					{name: '青海',value: 'qinghai' },
+					{name: '西藏',value: 'xizang' },
+					{name: '四川',value: 'sichuan' },
+					{name: '宁夏',value: 'ningxia' },
+					{name: '海南',value: 'hainan' },
+					{name: '台湾',value: 'taiwan' },
+					{name: '香港',value: 'xianggang' },
+					{name: '澳门',value: 'aomen' }];
+	
+	 $http.get(window.service_url+'/admin/settings/map?access_token='+$("#access_token").val()).success(function(data){
+	    	if(data.address=='中国') data.address='china';
+	    	else {$scope.worldMap = true;$scope.province = true;}
+	    	$scope.initMap(data.address);
+	 })
+	
+	$scope.initMap = function(map){
+	$http.get(window.service_url + "/admin/devices/locations?access_token=" + $("#access_token").val()).success(function(data) {
+		console.info(data);
+		$scope.data = data;
+		if(data.length){
+		var random = [];
+		for(var i=0;i<10;i++){
+			var num = Math.random();//Math.random()：得到一个0到1之间的随机数
+			num = Math.floor(num * (data.length-1));
+			random.push(num);
+		}
+		
+		angular.forEach(data, function(item) {
+			if(30 >= item.deviceInfo.compliance_degree){
+			citys.push({
+				"name" : item.device.owner_name,
+				"value" : [ item.longitude, item.latitude ],
+				"symbolSize" : 8,
+				"itemStyle" : {
+					"normal" : {
+						"color" : "#eb504f"
+					}
+				},
+				"situation" : item.address,
+				"device_id" : item.device.id,
+				"user_id" : item.device.owner_id,
+				"udid" : item.udid,
+				"head_portrait":item.user.head_portrait
+			});
+			}else if(item.deviceInfo.compliance_degree >30 && 60 >item.deviceInfo.compliance_degree ){
+				citys.push({
+					"name" : item.device.owner_name,
+					"value" : [ item.longitude, item.latitude ],
+					"symbolSize" : 8,
+					"itemStyle" : {
+						"normal" : {
+							"color" : "#51b1eb"
+						}
+					},
+					"situation" : item.address,
+					"device_id" : item.device.id,
+					"user_id" : item.device.owner_id,
+					"udid" : item.udid,
+					"head_portrait":item.user.head_portrait
+				});
+			}else if(item.deviceInfo.compliance_degree >=60){
+				citys.push({
+					"name" : item.device.owner_name,
+					"value" : [ item.longitude, item.latitude ],
+					"symbolSize" : 8,
+					"itemStyle" : {
+						"normal" : {
+							"color" : "#50eb94"
+						}
+					},
+					"situation" : item.address,
+					"device_id" : item.device.id,
+					"user_id" : item.device.owner_id,
+					"udid" : item.udid,
+					"head_portrait":item.user.head_portrait
+				});
+			}
+			
+		});
+		for(var i=0;i<10;i++){
+			var item = data[random[i]];
+			line.push({
+				"fromName" : item.device.owner_name,
+				"toName" : "态势感知",
+				"coords" : [ [ item.longitude, item.latitude ], [ 104.666218, 50.899589 ] ]
+			});
+			line_world.push({
+				"fromName" : item.device.owner_name,
+				"toName" : "态势感知",
+				"coords" : [ [ item.longitude, item.latitude ], [ 1,87 ] ]
+			});
+		}
+		}
+		if($scope.province){
+			$scope.showNormal = false;
+			$scope.series = [ {
+					name : '态势感知',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke'
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					data : [ {
+						"name" : "态势感知",
+						"type" : "effectScatter",
+						"value" : [ 104.506218, 51.609589 ],
+						"symbolSize" : 30
+					} ]
+				}, {
+					name : '地点',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke',
+						scale : 10
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					markPoint : {
+						label : {
+							emphasis : {
+								show : true,
+								position : 'right',
+								formatter : '{a}'
+							}
+						}
+					},
+					data : citys
+				// allData.citys
+				}]
+			
+		}else {
+			$scope.showNormal = true;
+		$scope.series = [ {
+					name : '态势感知',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke'
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					data : [ {
+						"name" : "态势感知",
+						"type" : "effectScatter",
+						"value" : [ 104.506218, 51.609589 ],
+						"symbolSize" : 30
+					} ]
+				}, {
+					name : '地点',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke'
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					markPoint : {
+						label : {
+							emphasis : {
+								show : true,
+								position : 'right',
+								formatter : '{a}'
+							}
+						}
+					},
+					data : citys
+				// allData.citys
+				}, {
+					// name : '线路',
+					type : 'lines',
+					coordinateSystem : 'geo',
+					zlevel : 2,
+					large : true,
+					effect : {
+						show : true,
+					//	constantSpeed : 30,
+						period : 6,
+					//	symbol : 'pin',//'droplet',
+						color: '#fff',
+						symbolSize : 2,
+						trailLength : 0.7,
+					},
+					lineStyle : {
+						normal : {
+							color : 'white', 
+							width : 0,
+						//	opacity : 0.2,
+							curveness : 0.2,
+						}
+					},
+					data : line
+				}]
+		}
+		option = {
+			backgroundColor : '#091825',
+			title : {
+				text : '移动终端安全态势感知平台',
+				left : '6.7%',
+				textStyle : {
+					color : '#fff',
+					fontSize : 36,
+					fontStyle: 'normal',
+					fontWeight : 'normal'
+				},
+				top : '6%',
+				
+			},
+			tooltip : {
+				trigger : 'item',
+				formatter : function(params) {
+					if (params.seriesIndex == 0) {
+						return '';
+					} else if (params.seriesIndex == 1) {
+						return params.name + '<br>' + params.seriesName + ':' + params.data.situation;
+					} else if (params.seriesIndex == 2) {
+						return params.data.fromName + '  >  ' + params.data.toName;
+					}
+				}
+			},
+			geo : {
+				map : map,
+				roam : false,
+				label : {
+					normal:{
+						show:$scope.showNormal
+					},
+					emphasis : {
+						show : true,
+						textStyle :{
+							color : '#fff'
+						}
+					}
+				},
+				zoom : 1,
+		//		center : [ 107.052118, 34.640962 ],
+				zlevel : 0,
+				itemStyle : {
+					normal : {
+						areaColor : '#136891',
+						borderColor : '#62879e',
+						borderWidth:2
+					},
+					emphasis : {
+						areaColor : '#2a333d',
+						borderColor : '#405C91'
+					}
+				}
+			},
+			series : $scope.series
+		};
+		myChart.setOption(option);
+		myChart.on('click', function(param) {
+			console.info(param);
+			if (param.seriesIndex == 1) {
+				$http.get(window.service_url + "/admin/devices/" + param.data.device_id + "/device?access_token=" + $('#access_token').val()).success(function(data) {
+        			$scope.device = data;
+        			console.info(data);
+        			if($scope.device) 
+        				$http.get(window.service_url + "/admin/users/" +$scope.device.owner_id + "/user?access_token=" + $('#access_token').val()).success(function(data){
+        					$scope.head_portrait = data.head_portrait +"?"+ Math.random();
+        				})
+        		});
+        		$http.get(window.service_url + "/admin/devices/" + param.data.udid + "/infos?access_token=" + $('#access_token').val()).success(function(data) {
+        			$scope.deviceInfo = data;
+        			if($scope.deviceInfo){
+        			if($scope.deviceInfo.freeMemory) $scope.deviceInfo.Memory = Math.round($scope.deviceInfo.freeMemory.split('MB')[0]*100 / $scope.deviceInfo.totalMemory.split('MB')[0]);
+        			if($scope.deviceInfo.remainingExternalMemory) $scope.deviceInfo.ExternalMemorys = Math.round($scope.deviceInfo.remainingExternalMemory.split('MB')[0]*100 / $scope.deviceInfo.totalExternalMemory.split('MB')[0]);
+        			console.info($scope.deviceInfo.ExternalMemorys)
+        			console.info(data);
+        			}
+        	});
+			}else if(param.componentType=='geo'){
+				$.each(cityList,function(i,item){
+					if(param.name==item.name){
+						$scope.showProvince(item.name);
+						return false;
+					}
+				})
+				
+			}
+		})
+		$('#main').children().css('overflow', '');
+	});
+	}
+	
+	 $timeout(function(){$interval(function() {
+		 var random = [];
+			for(var i=0;i<10;i++){
+				var num = Math.random();//Math.random()：得到一个0到1之间的随机数
+				num = Math.floor(num * $scope.data.length);
+				random.push(num);
+			}
+			var item = $scope.data;
+			if(item.length){
+			for(var i=0;i<10;i++){
+				var item = $scope.data[random[i]];
+				line.push({
+					"fromName" : item.device.owner_name,
+					"toName" : "态势感知",
+					"coords" : [ [ item.longitude, item.latitude ], [ 104.666218, 50.899589 ] ]
+				});
+				line_world.push({
+					"fromName" : item.device.owner_name,
+					"toName" : "态势感知",
+					"coords" : [ [ item.longitude, item.latitude ], [ 1,87 ] ]
+				});
+			}
+			if(!$scope.province){
+			if(!$scope.worldMap) {
+			myChart.setOption({
+				series : [{
+					name : '态势感知',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke'
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					data : [ {
+						"name" : "态势感知",
+						"type" : "effectScatter",
+						"value" :  [ 104.506218, 51.609589 ],
+						"symbolSize" : 30
+					} ]
+				}, {
+					name : '地点',
+					type : 'effectScatter',
+					coordinateSystem : 'geo',
+					zlevel : 1,
+					rippleEffect : {
+						brushType : 'stroke'
+					},
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{b}'
+						}
+					},
+					symbolSize : 20,
+					itemStyle : {
+						normal : {
+							color : '#46bee9'
+						}
+					},
+					markPoint : {
+						label : {
+							emphasis : {
+								show : true,
+								position : 'right',
+								formatter : '{a}'
+							}
+						}
+					},
+					data : citys
+				// allData.citys
+				}, {
+					type : 'lines',
+					coordinateSystem : 'geo',
+					zlevel : 2,
+					large : true,
+					effect : {
+						show : true,
+						period : 6,
+						color: '#fff',
+						symbolSize : 2,
+						trailLength : 0.7,
+					},
+					lineStyle : {
+						normal : {
+							color : 'white', 
+							width : 0,
+							curveness : 0.2,
+						}
+					},
+					data :line
+				}]
+			});}
+			else {
+				myChart.setOption({
+					series : [{
+						name : '态势感知',
+						type : 'effectScatter',
+						coordinateSystem : 'geo',
+						zlevel : 1,
+						rippleEffect : {
+							brushType : 'stroke'
+						},
+						label : {
+							emphasis : {
+								show : true,
+								position : 'right',
+								formatter : '{b}'
+							}
+						},
+						symbolSize : 20,
+						itemStyle : {
+							normal : {
+								color : '#46bee9'
+							}
+						},
+						data : [ {
+							"name" : "态势感知",
+							"type" : "effectScatter",
+							"value" : [ 0, 90 ],
+							"symbolSize" : 30
+						} ]
+					}, {
+						name : '地点',
+						type : 'effectScatter',
+						coordinateSystem : 'geo',
+						zlevel : 1,
+						rippleEffect : {
+							brushType : 'stroke'
+						},
+						label : {
+							emphasis : {
+								show : true,
+								position : 'right',
+								formatter : '{b}'
+							}
+						},
+						symbolSize : 20,
+						itemStyle : {
+							normal : {
+								color : '#46bee9'
+							}
+						},
+						markPoint : {
+							label : {
+								emphasis : {
+									show : true,
+									position : 'right',
+									formatter : '{a}'
+								}
+							}
+						},
+						data : citys
+					// allData.citys
+					}, {
+						type : 'lines',
+						coordinateSystem : 'geo',
+						zlevel : 2,
+						large : true,
+						effect : {
+							show : true,
+							period : 6,
+							color: '#fff',
+							symbolSize : 2,
+							trailLength : 0.7,
+						},
+						lineStyle : {
+							normal : {
+								color : 'white', 
+								width : 0,
+								curveness : 0.2,
+							}
+						},
+						data :line_world
+					}]
+				});
+			}}
+			}
+		}, 10000)},5000);
+	 
+	$scope.changeToWorld = function(){
+		$scope.worldMap = true;
+		$scope.province = false;
+		myChart.setOption({
+			geo : {
+				map : 'world',
+				roam : false,
+				label : {
+					normal:{
+						show:false
+					},
+					emphasis : {
+						show : true
+					}
+				},
+				zoom : 1,
+			//	center : [ -1.824497,23.567422 ],
+				itemStyle : {
+					normal : {
+						areaColor : '#136891',
+						borderColor : '#62879e',
+						borderWidth:2
+					},
+					emphasis : {
+						areaColor : '#2a333d',
+						borderColor : '#405C91'
+					}
+				},
+				
+				nameMap : {
+	                'Afghanistan':'阿富汗',
+	                'Angola':'安哥拉',
+	                'Albania':'阿尔巴尼亚',
+	                'United Arab Emirates':'阿联酋',
+	                'Argentina':'阿根廷',
+	                'Armenia':'亚美尼亚',
+	                'French Southern and Antarctic Lands':'法属南半球和南极领地',
+	                'Australia':'澳大利亚',
+	                'Austria':'奥地利',
+	                'Azerbaijan':'阿塞拜疆',
+	                'Burundi':'布隆迪',
+	                'Belgium':'比利时',
+	                'Benin':'贝宁',
+	                'Burkina Faso':'布基纳法索',
+	                'Bangladesh':'孟加拉国',
+	                'Bulgaria':'保加利亚',
+	                'The Bahamas':'巴哈马',
+	                'Bosnia and Herzegovina':'波斯尼亚和黑塞哥维那',
+	                'Belarus':'白俄罗斯',
+	                'Belize':'伯利兹',
+	                'Bermuda':'百慕大',
+	                'Bolivia':'玻利维亚',
+	                'Brazil':'巴西',
+	                'Brunei':'文莱',
+	                'Bhutan':'不丹',
+	                'Botswana':'博茨瓦纳',
+	                'Central African Republic':'中非共和国',
+	                'Canada':'加拿大',
+	                'Switzerland':'瑞士',
+	                'Chile':'智利',
+	                'China':'中国',
+	                'Ivory Coast':'象牙海岸',
+	                'Cameroon':'喀麦隆',
+	                'Democratic Republic of the Congo':'刚果民主共和国',
+	                'Republic of the Congo':'刚果共和国',
+	                'Colombia':'哥伦比亚',
+	                'Costa Rica':'哥斯达黎加',
+	                'Cuba':'古巴',
+	                'Northern Cyprus':'北塞浦路斯',
+	                'Cyprus':'塞浦路斯',
+	                'Czech Republic':'捷克共和国',
+	                'Germany':'德国',
+	                'Djibouti':'吉布提',
+	                'Denmark':'丹麦',
+	                'Dominican Republic':'多明尼加共和国',
+	                'Algeria':'阿尔及利亚',
+	                'Ecuador':'厄瓜多尔',
+	                'Egypt':'埃及',
+	                'Eritrea':'厄立特里亚',
+	                'Spain':'西班牙',
+	                'Estonia':'爱沙尼亚',
+	                'Ethiopia':'埃塞俄比亚',
+	                'Finland':'芬兰',
+	                'Fiji':'斐',
+	                'Falkland Islands':'福克兰群岛',
+	                'France':'法国',
+	                'Gabon':'加蓬',
+	                'United Kingdom':'英国',
+	                'Georgia':'格鲁吉亚',
+	                'Ghana':'加纳',
+	                'Guinea':'几内亚',
+	                'Gambia':'冈比亚',
+	                'Guinea Bissau':'几内亚比绍',
+	                'Equatorial Guinea':'赤道几内亚',
+	                'Greece':'希腊',
+	                'Greenland':'格陵兰',
+	                'Guatemala':'危地马拉',
+	                'French Guiana':'法属圭亚那',
+	                'Guyana':'圭亚那',
+	                'Honduras':'洪都拉斯',
+	                'Croatia':'克罗地亚',
+	                'Haiti':'海地',
+	                'Hungary':'匈牙利',
+	                'Indonesia':'印尼',
+	                'India':'印度',
+	                'Ireland':'爱尔兰',
+	                'Iran':'伊朗',
+	                'Iraq':'伊拉克',
+	                'Iceland':'冰岛',
+	                'Israel':'以色列',
+	                'Italy':'意大利',
+	                'Jamaica':'牙买加',
+	                'Jordan':'约旦',
+	                'Japan':'日本',
+	                'Kazakhstan':'哈萨克斯坦',
+	                'Kenya':'肯尼亚',
+	                'Kyrgyzstan':'吉尔吉斯斯坦',
+	                'Cambodia':'柬埔寨',
+	                'South Korea':'韩国',
+	                'Kosovo':'科索沃',
+	                'Kuwait':'科威特',
+	                'Laos':'老挝',
+	                'Lebanon':'黎巴嫩',
+	                'Liberia':'利比里亚',
+	                'Libya':'利比亚',
+	                'Sri Lanka':'斯里兰卡',
+	                'Lesotho':'莱索托',
+	                'Lithuania':'立陶宛',
+	                'Luxembourg':'卢森堡',
+	                'Latvia':'拉脱维亚',
+	                'Morocco':'摩洛哥',
+	                'Moldova':'摩尔多瓦',
+	                'Madagascar':'马达加斯加',
+	                'Mexico':'墨西哥',
+	                'Macedonia':'马其顿',
+	                'Mali':'马里',
+	                'Myanmar':'缅甸',
+	                'Montenegro':'黑山',
+	                'Mongolia':'蒙古',
+	                'Mozambique':'莫桑比克',
+	                'Mauritania':'毛里塔尼亚',
+	                'Malawi':'马拉维',
+	                'Malaysia':'马来西亚',
+	                'Namibia':'纳米比亚',
+	                'New Caledonia':'新喀里多尼亚',
+	                'Niger':'尼日尔',
+	                'Nigeria':'尼日利亚',
+	                'Nicaragua':'尼加拉瓜',
+	                'Netherlands':'荷兰',
+	                'Norway':'挪威',
+	                'Nepal':'尼泊尔',
+	                'New Zealand':'新西兰',
+	                'Oman':'阿曼',
+	                'Pakistan':'巴基斯坦',
+	                'Panama':'巴拿马',
+	                'Peru':'秘鲁',
+	                'Philippines':'菲律宾',
+	                'Papua New Guinea':'巴布亚新几内亚',
+	                'Poland':'波兰',
+	                'Puerto Rico':'波多黎各',
+	                'North Korea':'北朝鲜',
+	                'Portugal':'葡萄牙',
+	                'Paraguay':'巴拉圭',
+	                'Qatar':'卡塔尔',
+	                'Romania':'罗马尼亚',
+	                'Russia':'俄罗斯',
+	                'Rwanda':'卢旺达',
+	                'Western Sahara':'西撒哈拉',
+	                'Saudi Arabia':'沙特阿拉伯',
+	                'Sudan':'苏丹',
+	                'South Sudan':'南苏丹',
+	                'Senegal':'塞内加尔',
+	                'Solomon Islands':'所罗门群岛',
+	                'Sierra Leone':'塞拉利昂',
+	                'El Salvador':'萨尔瓦多',
+	                'Somaliland':'索马里兰',
+	                'Somalia':'索马里',
+	                'Republic of Serbia':'塞尔维亚共和国',
+	                'Suriname':'苏里南',
+	                'Slovakia':'斯洛伐克',
+	                'Slovenia':'斯洛文尼亚',
+	                'Sweden':'瑞典',
+	                'Swaziland':'斯威士兰',
+	                'Syria':'叙利亚',
+	                'Chad':'乍得',
+	                'Togo':'多哥',
+	                'Thailand':'泰国',
+	                'Tajikistan':'塔吉克斯坦',
+	                'Turkmenistan':'土库曼斯坦',
+	                'East Timor':'东帝汶',
+	                'Trinidad and Tobago':'特里尼达和多巴哥',
+	                'Tunisia':'突尼斯',
+	                'Turkey':'土耳其',
+	                'United Republic of Tanzania':'坦桑尼亚联合共和国',
+	                'Uganda':'乌干达',
+	                'Ukraine':'乌克兰',
+	                'Uruguay':'乌拉圭',
+	                'United States of America':'美国',
+	                'Uzbekistan':'乌兹别克斯坦',
+	                'Venezuela':'委内瑞拉',
+	                'Vietnam':'越南',
+	                'Vanuatu':'瓦努阿图',
+	                'West Bank':'西岸',
+	                'Yemen':'也门',
+	                'South Africa':'南非',
+	                'Zambia':'赞比亚',
+	                'Zimbabwe':'津巴布韦'
+	            },
+	            textFixed: {
+	            	Russia :[100,-100]
+                },
+			},
+			series : [ {
+				name : '态势感知',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 1,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : true,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 20,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				data : [ {
+					"name" : "态势感知",
+					"type" : "effectScatter",
+					"value" : [ 0, 90 ],
+					"symbolSize" : 30
+				} ]
+			}, {
+				name : '地点',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 1,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : true,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 20,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				markPoint : {
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{a}'
+						}
+					}
+				},
+				data : citys
+			// allData.citys
+			}, {
+				// name : '线路',
+				type : 'lines',
+				coordinateSystem : 'geo',
+				zlevel : 2,
+				large : true,
+				effect : {
+					show : true,
+				//	constantSpeed : 30,
+					period : 6,
+				//	symbol : 'pin',//'droplet',
+					color: '#fff',
+					symbolSize : 2,
+					trailLength : 0.7,
+				},
+				lineStyle : {
+					normal : {
+						color : 'white', 
+						width : 0,
+					//	opacity : 0.2,
+						curveness : 0.2,
+					}
+				},
+				data : line_world
+			// allData.moveLines
+			} ]
+			
+		})
+	}
+	
+	$scope.showChina = function(){
+		$scope.worldMap = false;
+		$scope.province = false;
+		myChart.setOption({
+			geo : {
+				map : 'china',
+				roam : false,
+				label : {
+					normal:{
+						show:true
+					},
+					emphasis : {
+						show : true
+					}
+				},
+				zoom : 1,
+			//	center : [ 107.052118, 34.640962 ],
+				itemStyle : {
+					normal : {
+						areaColor : '#136891',
+						borderColor : '#62879e',
+						borderWidth:2
+					},
+					emphasis : {
+						areaColor : '#2a333d',
+						borderColor : '#405C91'
+					}
+				}
+			},
+			series : [ {
+				name : '态势感知',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 1,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : true,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 20,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				data : [ {
+					"name" : "态势感知",
+					"type" : "effectScatter",
+					"value" : [ 104.506218, 51.609589 ],
+					"symbolSize" : 30
+					
+				} ]
+			}, {
+				name : '地点',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 1,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : true,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 20,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				markPoint : {
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{a}'
+						}
+					}
+				},
+				data : citys
+			// allData.citys
+			}, {
+				// name : '线路',
+				type : 'lines',
+				coordinateSystem : 'geo',
+				zlevel : 2,
+				large : true,
+				effect : {
+					show : true,
+				//	constantSpeed : 30,
+					period : 6,
+				//	symbol : 'pin',//'droplet',
+					color: '#fff',
+					symbolSize : 2,
+					trailLength : 0.7,
+				},
+				lineStyle : {
+					normal : {
+						color : 'white', 
+						width : 0,
+					//	opacity : 0.2,
+						curveness : 0.2,
+					}
+				},
+				data : line
+			// allData.moveLines
+			} ]
+			
+		});
+	}
+	
+	$scope.showProvince = function(value){
+		$scope.worldMap = true;
+		$scope.province = true;
+		console.info($scope.worldMap);
+		myChart.setOption({
+			geo : {
+				map : value,//'china',
+				roam : false,
+				label : {
+					normal:{
+						show:false
+					},
+					emphasis : {
+						show : true
+					}
+				},
+				zoom : 1,
+			//	center : [ 107.052118, 34.640962 ],
+				itemStyle : {
+					normal : {
+						areaColor : '#136891',
+						borderColor : '#62879e',
+						borderWidth:2
+					},
+					emphasis : {
+						areaColor : '#2a333d',
+						borderColor : '#405C91'
+					}
+				}
+			},
+			series : [ {
+				name : '态势感知',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 0,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : false,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 0,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				data : [ {
+					"name" : "态势感知",
+					"type" : "effectScatter",
+					"value" : [ 0, 90 ],
+					"symbolSize" : 30
+				} ]
+			}, {
+				name : '地点',
+				type : 'effectScatter',
+				coordinateSystem : 'geo',
+				zlevel : 1,
+				rippleEffect : {
+					brushType : 'stroke'
+				},
+				label : {
+					emphasis : {
+						show : true,
+						position : 'right',
+						formatter : '{b}'
+					}
+				},
+				symbolSize : 20,
+				itemStyle : {
+					normal : {
+						color : '#46bee9'
+					}
+				},
+				markPoint : {
+					label : {
+						emphasis : {
+							show : true,
+							position : 'right',
+							formatter : '{a}'
+						}
+					}
+				},
+				data : citys
+			},{
+				// name : '线路',
+				type : 'lines',
+				coordinateSystem : 'geo',
+				zlevel : 2,
+				large : true,
+				effect : {
+					show : false,
+					period : 6,
+					color: '#fff',
+					symbolSize : 2,
+					trailLength : 0.7,
+				},
+				lineStyle : {
+					normal : {
+						color : 'white', 
+						width : 0,
+					//	opacity : 0.2,
+						curveness : 0.2,
+					}
+				},
+				data : line_world
+			} ]
+		});
+	}
+});
+
+emmsApp.filter('situationFilter',function(){
+	return function(item,param){
+		if('range' == param){
+			if(item>0 &&30 >=item)
+			return '低';
+			else if(item>30 &&item<60)
+				return '中';
+			else if(item>=60)
+				return '高';
+		}else if('spanRange' ==param){
+			if(item>0 && 30>=item)
+				return 'label-danger';
+				else if(item>30 && item<60)
+					return 'label-info';
+				else if(item>60 ||item ==60)
+					return 'label-success';
+		}
+	}
+})

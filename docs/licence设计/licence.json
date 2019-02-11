@@ -1,0 +1,58 @@
+{
+    "licence": {
+        "product": {
+            "name": "SecSpace",
+            "version": "1.5",
+            "expire": "20181231 00:00:00"
+        },
+        "serverModules":{
+            "p01":true,
+            "p02":{
+                "01":false,
+                "02":false,
+                "03":false
+            },
+            "p03":{
+                "01":false
+            },
+            "p04":{
+                "01":false,
+                "02":{
+                    "01":false,
+                    "02":false
+                },
+                "03":false,
+                "04":false
+            },
+            "p05":{
+                "01":false
+            },
+            "p06":{
+                "01":false,
+                "02":false,
+                "03":false
+            },
+            "p07":{
+                "01":false,
+                "02":false,
+                "03":false,
+                "04":false,
+                "05":false,
+                "06":false,
+                "07":false,
+                "08":false,
+                "09":false
+            },
+            "p08":{
+                "01":false,
+                "02":false,
+                "03":true
+            }
+        },
+        "attributes": {
+            "maxUserNumber": "50000",
+            "maxAdminNumber": "10",
+            "cipherKey": "**************"
+        }
+    }
+}

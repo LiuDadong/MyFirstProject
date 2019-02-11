@@ -1,0 +1,47 @@
+{
+    "gid":-1,  //虚拟根
+    "check":0, 
+    "reverse":1,
+    "pickUsers":[],
+    "pickGroups":[
+        {
+            "gid":0,  //真实可见的根
+            "check":0,
+            "reverse":1,
+            "pickUsers":[],
+            "pickGroups":[{  
+                "gid":3.2,  //真实可见的根
+                "check":0,
+                "reverse":1,
+                "pickUsers":[3],
+                "pickGroups":[]
+            }]
+        }
+    ]
+}
+
+
+
+
+[{
+    check:1,
+    sel:[2,3,4,5],
+    tid:1,
+    unsel:[1,6,7]
+},{
+    check:1,
+    sel:[2,3,4,5],
+    tid:3,
+    unsel:[1,6,7]
+}]
+
+dl 
+    dt
+        ul
+            li
+    dd
+        ul 
+            li
+    dd  
+        ul
+            li

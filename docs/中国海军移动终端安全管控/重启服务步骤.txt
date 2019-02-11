@@ -1,0 +1,5 @@
+打开putty.exe
+输入192.168.1.69，其余默认，进入命令窗口
+账号 root 密码 root   appssec1234 (192.168.1.69)登录
+进入/usr/local/test_server/secspace_server/secspace_server_web
+执行 pm2 restart app.js

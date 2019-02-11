@@ -1,0 +1,249 @@
+@CHARSET "UTF-8";
+body{
+	font-family:"Microsoft YaHei","Helvetica", 'Lucida Grande', sans-serif;
+
+}
+.toolbar table tr td{
+	vertical-align:middle ;
+}
+
+.main{
+	margin-left:230px;
+	
+}
+
+.contentpanel {
+    padding: 20px;
+}
+
+
+.pageheader {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    height: 90px;
+    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.03);
+}
+
+.pageheader .pull-left {
+    width: 50px;
+    height: 50px;
+    background-color: #4e5154;
+    display: inline-block;
+    color: #fff;
+    font-size: 32px;
+    border-radius: 3px;
+    padding-top: 3px;
+    padding-left: 7px;
+}
+
+.pageheader .breadcrumb{
+	margin: 0;
+	padding: 0;
+	background: none;
+	font-size: 11px;
+	color: #999;
+	line-height: 18px;
+}
+
+.pageheader .breadcrumb li a:hover,
+.pageheader .breadcrumb li a:active,
+.pagehaeder .breadcrumb li a:focus {
+    color: #428bca;
+}
+
+.pageheader .breadcrumb li a {
+	color: #333;
+}
+
+.pageheader .breadcrumb li a span {
+    color: #999;
+    font-size: 10px;
+}
+
+.pageheader h4 {
+    margin: -2px 0 0 0;
+    font-size: 28px;
+    font-weight: 500;
+    color: #2f363d;
+    line-height: normal;
+}
+
+/* 全局CSS */
+
+.emms-col-md-1{
+	width:10%;	
+	
+}
+
+.toolbar tr{
+	background-color:#F5F5F5;
+	
+}
+
+.toolbar .form-control{
+	background-color:#fff;
+	
+}
+
+.toolbar tr{
+	border-color:#000;
+}
+
+.emms-header{
+	border-bottom:0px solid #FFF;
+	
+}
+.navbar .navbar-right{
+	
+}
+.navbar .navbar-right > li > a{
+	margin-right:15px;
+	color:#fff;
+}
+.navbar .navbar-right > .open > a,
+.navbar .navbar-right > .open > a:hover,
+.navbar .navbar-right > .open > a:focus{
+	background-color: rgba(0,0,0,0.1);
+}
+.navbar-header{
+	width:230px;
+	background-color: rgba(0,0,0,0.03);
+}
+.navbar-inverse{
+	background-color:#428BCA;
+}
+
+.navbar-brand{
+	font-size: 20px;
+}
+
+.navbar-nav>li>a{
+	font-size:16px;
+}
+.navbar-inverse .navbar-brand{
+	color:#fff;
+	
+}
+.navbar-inverse .navbar-nav>.active>a{
+	background-color:#285e8e;
+}
+
+.glyphicon-dynamic-password:before {
+  content: url("/static/image/dynamic_password.png");;
+}
+.glyphicon-exit-request:before {
+  content: url("/static/image/exit_request.png");;
+}
+
+.device_icon{
+	width:110px;
+	height:80px;
+	float:left;
+	text-align: center;
+}
+
+/* 左边栏样式 
+.sidebar{
+	background-color:#222222;
+	padding:10px;
+}
+
+.nav-sidebar a{
+	color:#ccc;
+}
+
+.nav-sidebar>.active>a{
+	font-size:16px;
+	color:#fff;
+	background-color:#428bca;
+	padding-left:40px;
+}
+
+.nav-sidebar >li>a:hover{
+	background-color:#f7f7f7;
+	
+}
+
+*/
+/*
+.tabs-below, .tabs-right,
+.tabs-left .nav-tabs {
+  border-bottom: 0; }
+
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+  display: none; }
+
+.tab-content > .active,
+.pill-content > .active {
+  display: block; }
+
+.tabs-below > .nav-tabs {
+  border-top: 1px solid #dddddd; }
+.tabs-below > li {
+  margin-top: -1px;
+  margin-bottom: 0; }
+.tabs-below > a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px; }
+  .tabs-below > a:hover, .tabs-below > a:focus {
+    border-top-color: #dddddd;
+    border-bottom-color: transparent; }
+.tabs-below > .active a, .tabs-below > .active a:hover, .tabs-below > .active a:focus {
+  border-color: transparent #dddddd #dddddd #dddddd; }
+
+.tabs-left > .nav-tabs > li, .tabs-right > .nav-tabs > li {
+  float: none; }
+.tabs-left > a, .tabs-right > a {
+  //min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px; }
+
+.tabs-left > .nav-tabs {
+  float: left;
+  margin-right: 19px;
+  border-right: 1px solid #dddddd; }
+  .tabs-left > .nav-tabs > li > a {
+    margin-right: -1px;
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px; }
+    .tabs-left > .nav-tabs > li > a:hover, .tabs-left > .nav-tabs > li > a:focus {
+      border-color: #eeeeee #dddddd #eeeeee #eeeeee; }
+  .tabs-left > .nav-tabs > .active a, .tabs-left > .nav-tabs > .active a:hover, .tabs-left > .nav-tabs > .active a:focus {
+    border-color: #dddddd transparent #dddddd #dddddd;
+    *border-right-color: white; }
+
+.tabs-right > .nav-tabs {
+  float: right;
+  margin-left: 19px;
+  border-left: 1px solid #dddddd; }
+  .tabs-right > .nav-tabs > li > a {
+    margin-left: -1px;
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0; }
+    .tabs-right > .nav-tabs > li > a:hover, .tabs-right > .nav-tabs > li > a:focus {
+      border-color: #eeeeee #eeeeee #eeeeee #dddddd; }
+  .tabs-right > .nav-tabs > .active a, .tabs-right > .nav-tabs > .active a:hover, .tabs-right > .nav-tabs > .active a:focus {
+    border-color: #dddddd #dddddd #dddddd transparent;
+    *border-left-color: white; }
+.panel-body .form-group{
+	margin-bottom: 50px;
+}
+.panel-body .form-group .control-label{
+	margin-top: 6px;
+}
+*/
+
+.download_ios:BEFORE{
+	content:url("/static/image/download/ios.png")
+}
+.download_android:BEFORE{
+	content:url("/static/image/download/ios.png")
+}
+
+

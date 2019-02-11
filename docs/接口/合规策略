@@ -1,0 +1,39 @@
+合规策略:
+
+{
+基本信息
+"id" : 12, 
+"name" : "合规策略",
+"delay": 2,		延迟(以小时为单位)
+
+"policy_type" : "complicance"
+"status" : 1	 (默认开启)
+"creator" :	admin
+
+"available" : 0,   
+"update_time" : "2017-07-17 18:28:44", 
+"create_time" : "2017-07-17 18:26:27", 
+"md5":
+
+合规项
+"complicance_item" : {
+	"rooted": 0,		是否root
+	"sim": 0,			SIM卡变更
+	"sys_low": 0,		系统版本过低
+	"os_version": 19,	若系统版本过低开启，则传系统版本
+	"lost_contact": 1,	失联
+	"lost_day": 3		失联天数
+}, 
+
+违规限制
+"violation_limit" : { 
+				"alarm": 1,				违规告警(通知／邮件)
+				"camera": 1, 			禁止使用相机
+				"access_secspace": 1,	静止访问安全空间
+				"enterprise_data": 1,	擦出企业数据
+				"all_data": 1,			擦出全部数据
+				"sd": 1,				禁用SD卡
+				"message": 1,			禁止使用短信
+				"phone": 1				禁止收听电话
+				}
+}

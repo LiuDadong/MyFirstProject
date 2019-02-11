@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://47.94.197.81/dashboard/situation-awareness -->
+<html lang="zh-cn" ng-app="emmsApp" class="ng-scope"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\:form{display:block;}.ng-animate-start{border-spacing:1px 1px;-ms-zoom:1.0001;}.ng-animate-active{border-spacing:0px 0px;-ms-zoom:1;}</style>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>态势感知</title>
+<link href="./态势感知_files/bootstrap.min.css" rel="stylesheet">
+<link href="./态势感知_files/dashboard.css" rel="stylesheet">
+<link href="./态势感知_files/style.css" rel="stylesheet">
+<link href="./态势感知_files/bootstrap-override.css" rel="stylesheet">
+<link href="./态势感知_files/style.default.css" rel="stylesheet" media="screen">
+
+<link href="./态势感知_files/dashboard(1).css" rel="stylesheet">
+<link href="./态势感知_files/style(1).css" rel="stylesheet">
+<link href="./态势感知_files/bootstrap-override(1).css" rel="stylesheet">
+<link href="./态势感知_files/style.default(1).css" rel="stylesheet" media="screen">
+
+<script src="./态势感知_files/jquery-1.9.1.js.下载"></script>
+<script src="./态势感知_files/angular.js.下载"></script>
+<script src="./态势感知_files/angular-ui-router.js.下载"></script>
+<script src="./态势感知_files/angular-resource.min.js.下载"></script>
+
+<script src="./态势感知_files/ui-bootstrap-tpls-0.11.2.min.js.下载"></script>
+<script src="./态势感知_files/angular-file-upload.min.js.下载"></script>
+<script src="./态势感知_files/ng-table.min.js.下载"></script>
+<script src="./态势感知_files/angular-dragdrop.min.js.下载"></script>
+<script src="./态势感知_files/jsTree.directive.js.下载"></script>
+<script src="./态势感知_files/tm.pagination.js.下载"></script>
+<script src="./态势感知_files/highcharts-ng.js.下载"></script>
+<script src="./态势感知_files/echarts.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/china.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/world.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/anhui.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/beijing.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/chongqing.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/fujian.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/gansu.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/aomen.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/guangdong.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/guangxi.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/guizhou.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/hainan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/hebei.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/heilongjiang.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/henan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/hubei.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/hunan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/jiangsu.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/jiangxi.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/jilin.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/liaoning.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/neimenggu.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/ningxia.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/qinghai.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/shandong.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/shanghai.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/shanxi.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/shanxi1.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/sichuan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/taiwan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/tianjin.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/xianggang.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/xinjiang.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/xizang.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/yunnan.js.下载"></script>
+<script type="text/javascript" src="./态势感知_files/zhejiang.js.下载"></script>
+
+<script src="./态势感知_files/esl.js.下载"></script>
+<script src="./态势感知_files/zrender.js.下载"></script>
+<script type="text/javascript">
+	var service_url='https://47.94.197.81/api/v1';
+	var zuul='https://47.94.197.81/zuul/api/v1';
+</script>
+<style type="text/css">
+body{
+	background: #091825;
+}
+
+.panel-group {
+	margin-bottom: 0px;
+}
+
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+	border:0px solid #fff;
+}
+.table > thead > tr > th,.table > tbody > tr > td {
+	padding:4px;
+	line-height: 1.02857143;
+	background: rgba(160,160,160,0.2);
+	border-top: 2px solid rgba(56,81,102,0.2);
+	/*opacity: 0.2;*/
+	color:#95c6ff;
+}
+.user{
+	background: rgba(160,160,160,0.2);
+	color: white;
+	border: 0px solid white;
+	border-bottom: 1px solid #899097;
+	border-left: 1px solid #07354c;
+	border-right: 1px solid #07354c;
+}
+.table-bordered{
+	border:0px;
+	border-bottom:1px solid #6ea9c6;
+}
+</style>
+</head>
+<body ng-controller="SituationAwarenessCtrl" class="ng-scope">
+	<input type="hidden" id="access_token" value="22f7800e-69d5-4063-bd14-ffe02bb86a40">
+
+	<div style="float: left;z-index: 1;">
+		<div id="all_info" style="z-index: 1; position: relative; margin-top: 215.88px; margin-left: 116.16px;">
+		<div style="width: 120px; margin-bottom: 77.44px;">
+			<div style="-webkit-border-radius: 50%;height: 100px;width: 100px;border: 3px solid white;">
+				<div style="margin-top: 14px;text-align: center;color:white;">
+					注册终端 <br> 
+					<p style="color:white;font-size: 20px;margin-top:10px;" class="ng-binding">55 </p>
+				</div>
+			</div>
+		</div>
+		<div style="width: 120px; margin-bottom: 77.44px;">
+			<div style="-webkit-border-radius: 50%;height: 100px;width: 100px;border: 3px solid white;">
+				<div style="margin-top: 14px;text-align: center;color:white;">
+					在线终端 <br> 
+					<p style="color:white;font-size: 20px;margin-top:10px;" class="ng-binding">6</p>
+				</div>
+			</div>
+		</div>
+		<div style="width: 120px; margin-bottom: 77.44px;">
+			<div style="-webkit-border-radius: 50%;height: 100px;width: 100px;border: 3px solid white;">
+				<div style="margin-top: 14px;text-align: center;color:white;">
+					风险终端 <br> 
+					<p style="color:white;font-size: 20px;margin-top:10px;" class="ng-binding">7</p>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div id="securityEvent" style="float:left;z-index:1;width:50%;position:relative;margin-top:39%;margin-left:8%;">
+	<div style="color: #405C91;border-top: 1px solid #6ea9c6;border-left: 1px solid #6ea9c6;border-right: 1px solid #6ea9c6;">
+		
+		<div class="panel-group" style="color:rgb(164,208,254);font-size:16px;" ng-click="changeTable()">
+			<div class="panel panel-default" style="border-radius:0px;background:rgba(160,160,160,0.2);border-color: #253643;">
+				<div class="panel-body">
+					<div class="text-left" style="display: inline;">
+						<span>安全事件</span>
+					</div>
+					<div class="text-right" style="display: inline;margin-left: 85%;">
+						<span>
+							<i class="glyphicon_situation_illegal_hide" ng-show="showTable"></i>
+							<i class="glyphicon_situation_illegal_show ng-hide" ng-show="!showTable"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div ng-show="showTable" style="margin-top:10px;" class="">
+			<table ng-table="tableParams" class="table table-bordered ng-scope ng-table" style="margin-bottom:0px;"><!-- ngInclude: templates.header --><thead ng-include="templates.header" class="ng-scope"><tr class="ng-scope"> <!-- ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding"> </div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header  sortable"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding">时间</div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header  sortable"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding">设备</div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header  sortable"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding">用户</div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header  sortable"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding">事件内容</div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-class="{ &#39;sortable&#39;: parse(column.sortable), &#39;sort-asc&#39;: params.sorting()[parse(column.sortable)]==&#39;asc&#39;, &#39;sort-desc&#39;: params.sorting()[parse(column.sortable)]==&#39;desc&#39; }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template=column.headerTemplateURL(this)" class="header"> <!-- ngIf: !template --><div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)" class="ng-scope ng-binding"> </div><!-- end ngIf: !template --> <!-- ngIf: template --> </th><!-- end ngRepeat: column in $columns --> </tr> <tr ng-show="show_filter" class="ng-table-filters ng-scope ng-hide"> <!-- ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --><th ng-repeat="column in $columns" ng-show="column.show(this)" class="filter ng-scope"> <!-- ngRepeat: (name, filter) in column.filter --> </th><!-- end ngRepeat: column in $columns --> </tr></thead>
+				<tbody><!-- ngRepeat: user in $data --><tr ng-repeat="user in $data" ng-click="refreshDeviceInfo(user.udid)" style="cursor:pointer" class="ng-scope">
+					<td width="60px" data-title-text=" "></td>
+					
+					<td data-title="&#39;时间&#39;" sortable="&#39;username&#39;" data-title-text="时间" class="ng-binding">2018-03-14 16:31:17</td>
+					<td data-title="&#39;设备&#39;" sortable="&#39;name&#39;" data-title-text="设备" class="ng-binding">iPhone 8</td>
+					<td data-title="&#39;用户&#39;" sortable="&#39;email&#39;" data-title-text="用户" class="ng-binding">lingyun</td>
+					<td data-title="&#39;事件内容&#39;" sortable="&#39;position&#39;" data-title-text="事件内容" class="ng-binding">手势错误</td>
+					<td data-title-text=" "></td>
+				</tr><!-- end ngRepeat: user in $data --><tr ng-repeat="user in $data" ng-click="refreshDeviceInfo(user.udid)" style="cursor:pointer" class="ng-scope">
+					<td width="60px" data-title-text=" "></td>
+					
+					<td data-title="&#39;时间&#39;" sortable="&#39;username&#39;" data-title-text="时间" class="ng-binding">2018-03-13 18:15:07</td>
+					<td data-title="&#39;设备&#39;" sortable="&#39;name&#39;" data-title-text="设备" class="ng-binding">HUAWEI-HUAWEI MT7-TL00</td>
+					<td data-title="&#39;用户&#39;" sortable="&#39;email&#39;" data-title-text="用户" class="ng-binding">wangt</td>
+					<td data-title="&#39;事件内容&#39;" sortable="&#39;position&#39;" data-title-text="事件内容" class="ng-binding">手势密码错误</td>
+					<td data-title-text=" "></td>
+				</tr><!-- end ngRepeat: user in $data --><tr ng-repeat="user in $data" ng-click="refreshDeviceInfo(user.udid)" style="cursor:pointer" class="ng-scope">
+					<td width="60px" data-title-text=" "></td>
+					
+					<td data-title="&#39;时间&#39;" sortable="&#39;username&#39;" data-title-text="时间" class="ng-binding">2018-03-13 16:56:55</td>
+					<td data-title="&#39;设备&#39;" sortable="&#39;name&#39;" data-title-text="设备" class="ng-binding">OnePlus-ONEPLUS A5000</td>
+					<td data-title="&#39;用户&#39;" sortable="&#39;email&#39;" data-title-text="用户" class="ng-binding">laji</td>
+					<td data-title="&#39;事件内容&#39;" sortable="&#39;position&#39;" data-title-text="事件内容" class="ng-binding">密码错误</td>
+					<td data-title-text=" "></td>
+				</tr><!-- end ngRepeat: user in $data --><tr ng-repeat="user in $data" ng-click="refreshDeviceInfo(user.udid)" style="cursor:pointer" class="ng-scope">
+					<td width="60px" data-title-text=" "></td>
+					
+					<td data-title="&#39;时间&#39;" sortable="&#39;username&#39;" data-title-text="时间" class="ng-binding">2018-03-13 16:33:37</td>
+					<td data-title="&#39;设备&#39;" sortable="&#39;name&#39;" data-title-text="设备" class="ng-binding">OnePlus-ONEPLUS A5000</td>
+					<td data-title="&#39;用户&#39;" sortable="&#39;email&#39;" data-title-text="用户" class="ng-binding">laji</td>
+					<td data-title="&#39;事件内容&#39;" sortable="&#39;position&#39;" data-title-text="事件内容" class="ng-binding">SIM卡违规</td>
+					<td data-title-text=" "></td>
+				</tr><!-- end ngRepeat: user in $data --><tr ng-repeat="user in $data" ng-click="refreshDeviceInfo(user.udid)" style="cursor:pointer" class="ng-scope">
+					<td width="60px" data-title-text=" "></td>
+					
+					<td data-title="&#39;时间&#39;" sortable="&#39;username&#39;" data-title-text="时间" class="ng-binding">2018-03-13 15:28:02</td>
+					<td data-title="&#39;设备&#39;" sortable="&#39;name&#39;" data-title-text="设备" class="ng-binding">OnePlus-ONEPLUS A5000</td>
+					<td data-title="&#39;用户&#39;" sortable="&#39;email&#39;" data-title-text="用户" class="ng-binding">laji</td>
+					<td data-title="&#39;事件内容&#39;" sortable="&#39;position&#39;" data-title-text="事件内容" class="ng-binding">SIM卡违规</td>
+					<td data-title-text=" "></td>
+				</tr><!-- end ngRepeat: user in $data -->
+				<tr> 
+					<td colspan="6" style="text-align: right;background:rgba(56,81,102,0.2);padding-right:20px;height:30px;"><a href="https://47.94.197.81/msp#/log/alarm">查看更多...</a> </td></tr>
+			</tbody></table><div ng-table-pagination="params" template-url="templates.pagination" class="ng-scope ng-isolate-scope" style="display: none;"><!-- ngInclude: templateUrl --><div ng-include="templateUrl" class="ng-scope"><div class="ng-table-pager ng-scope"> <!-- ngIf: params.settings().counts.length --> <ul class="pagination ng-table-pagination"> <!-- ngRepeat: page in pages --> </ul> </div> </div></div>
+		</div>
+		
+	</div>
+	</div>
+	<div style="float:right;z-index: 1;position: relative;margin-right:6%;margin-top:5%;">
+		<div style="margin-top:20%;width:200px;">
+			<div class="panel-group" style="margin-bottom:10%;">
+			<div style="float:left;">
+				<a href="javascript:;" ng-click="changeToWorld()">
+					<i class="glyphicon glyphicon_situation_world" title="世界地图" ng-show="!worldMap"></i>
+				</a>
+				<a href="javascript:;" ng-click="showChina()">
+					<i class="glyphicon glyphicon_situation_china ng-hide" title="中国地图" ng-show="worldMap"></i>
+				</a>
+			</div>
+			<div style="margin-left:50%;">
+			<a href="https://47.94.197.81/msp#/dashboard" title="返回至管理界面">
+				<i class="glyphicon glyphicon_situation_back" title="返回至管理界面"></i>
+			</a></div>
+			</div>
+			<div class="panel-group" ng-click="showUser=!showUser">
+				<div class="panel panel-default user" style="border-radius:0px;">
+					<div class="panel-body text-right">
+					<i class="glyphicon glyphicon_situation_user_hide" ng-show="showUser"></i>
+					<i class="glyphicon glyphicon_situation_user_show ng-hide" ng-show="!showUser"></i>
+					</div>
+				</div>
+			</div>
+			<div class="panel-group" ng-show="showUser">
+				<div class="panel panel-default user" style="border-radius:0px;">
+					<div class="panel-body"><a href="https://47.94.197.81/msp#/device/57" style="color:white;" class="ng-binding">Apple&nbsp;无法获取</a></div>
+				</div>
+			</div>
+			<div class="panel-group" ng-show="showUser">
+				<div class="panel panel-default user" style="border-radius:0px;">
+					<div class="panel-body">安全等级:<span class="label ng-binding label-success" ng-class="deviceInfo.complianceDegree |situationFilter:&#39;spanRange&#39;" style="padding-left: 16px;margin-left: 20px;padding-right: 16px;">高</span></div>
+				</div>
+			</div>
+			<div class="panel-group" ng-show="showUser">
+				<div class="panel panel-default user" style="border-radius:0px;">
+					<div class="panel-body">
+						<div class="form-group"><img src="./态势感知_files/default.png" alt="" style="width:25px;height:25px;vertical-align:top;" title="头像"><span style="vertical-align: 50%;margin-left:20px;" title="用户名"><a href="https://47.94.197.81/msp#/user/28" style="color:white;" class="ng-binding">聆云</a></span></div>
+						<div class="form-group"><i class="glyphicon glyphicon_situation_ios" ng-show="deviceInfo.operatingSystem==&#39;iOS&#39; ||deviceInfo.operatingSystem==&#39;iPhone OS&#39;" title="系统版本"></i><i class="glyphicon glyphicon_situation_android ng-hide" ng-show="deviceInfo.operatingSystem==&#39;Android&#39;" title="系统版本"></i><span style="vertical-align: 50%;margin-left:20px;" title="系统版本" class="ng-binding">iOS&nbsp;11.2.6</span></div>
+						<div class="form-group"><i class="glyphicon glyphicon_situation_build" title="客户端版本"></i><span style="vertical-align: 50%;margin-left:20px;" title="客户端版本" class="ng-binding">4.0.0.0(400000026)</span></div>
+						<div class="form-group"><i class="glyphicon glyphicon_situation_time" title="更新时间"></i><span style="vertical-align: 50%;margin-left:20px;" title="更新时间" class="ng-binding"> 2018-03-14 18:15:50</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-group" ng-show="showUser">
+				<div class="panel panel-default user" style="border-radius:0px;border-bottom:0px;">
+					<div class="panel-body">
+						<div class="form-group">
+							<i class="glyphicon glyphicon_situation_bettry" title="电池电量"></i><span style="vertical-align: 50%;margin-left:20px;" title="电池电量" class="ng-binding">36%</span>
+						</div>
+						<div class="form-group">
+							<i class="glyphicon glyphicon_situation_memorys" title="内部储存"></i><span style="vertical-align: 50%;margin-left:20px;" title="内部储存" class="ng-binding">17%</span>
+						</div>
+						<div class="form-group">
+							<i class="glyphicon glyphicon_situation_external_memorys" title="外部储存"></i><span style="vertical-align: 50%;margin-left:20px;" title="外部储存" class="ng-binding">null%</span>
+						</div>
+						<div class="form-group">
+							<i class="glyphicon glyphicon_situation_internate" title="当前网络"></i><span style="vertical-align: 50%;margin-left:20px;" title="当前网络" class="ng-binding">SecSpace-5G</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div style="z-index:1;">
+		<div id="main" _echarts_instance_="ec_1521076872735" style="width: 1799px; height: 968px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: rgb(9, 24, 37);"><div style="position: relative; width: 1799px; height: 968px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="1799" height="968" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 1799px; height: 968px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas><canvas width="1799" height="968" data-zr-dom-id="zr_1" style="position: absolute; left: 0px; top: 0px; width: 1799px; height: 968px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas><canvas width="1799" height="968" data-zr-dom-id="zr_2" style="position: absolute; left: 0px; top: 0px; width: 1799px; height: 968px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+	</div>
+
+	<!-- 设备管控JS -->
+	<script src="./态势感知_files/situation-awareness.js.下载"></script>
+	<!-- End 设备管控JS -->
+
+</body></html>

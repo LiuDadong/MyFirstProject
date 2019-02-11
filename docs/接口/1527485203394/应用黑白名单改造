@@ -1,0 +1,145 @@
+  黑白名单数据格式:
+
+  白名单：
+  {
+  	"available" : 0, 
+  	"status" : 0,  
+  	"modified" : "2017-11-02 16:24:37", 
+  	"create_time" : "2017-11-02 16:24:37", 
+  	"operator" : "admin", 
+  	"id" : 1, 
+
+  	"name" : "测试",
+  	"describe" : "",
+  	"list_type": "whitelist",
+  	"phone_func": 0,
+  	"system_app": 0, 
+  	"package_name" : ["com.eg.android.AlipayGphone", "com.tence.cn"]
+  }
+
+
+  黑名单：
+  {
+  	"available" : 0, 
+  	"status" : 0, 
+  	"modified" : "2017-11-02 16:24:37", 
+  	"create_time" : "2017-11-02 16:24:37", 
+  	"operator" : "admin", 
+  	"id" : 1, 
+
+  	"name" : "测试"
+  	"describe" : "", 
+  	"list_type": "blacklist",
+  	"package_name" : ["com.eg.android.AlipayGphone", "com.tence.cn"] 
+  }
+
+
+
+接口详情：
+
+ 应用黑白名单
+ 	1. 添加黑白名单
+    /p/app/addAppList
+    	post  
+    	(list_type = blacklist)
+    	params: sid, name, list_type, app_name, describe, package_name(数组格式为数组["package1", "package2"])
+    	(list_type = whitelist)
+    	params: sid, name, list_type, describe, phone_func(值为0/1), system_app(值为0/1), 
+    			package_name(数组格式为数组["package1", "package2"])
+
+    2. 显示所有的黑白名单
+    /p/app/showAppList
+    	get 
+    	params: sid, start_page, page_length
+
+    3. 删除指定的黑白名单
+    /p/app/delAppList
+    	post 
+    	params: sid, id(数组，值为删除的名单的id)
+
+    4. 修改黑白名单的状态(启用／禁用)
+    /p/app/statusAppList
+    	post
+    	params: sid, flag, id(数组，值为名单id)
+    	(ps: 此接口中有判断是否被用的逻辑，根据返回的数据调整页面显示)
+
+    5. 编辑黑白名单
+    /p/app/updateAppList
+    	post
+    	(list_type = blacklist)
+    	params: sid, id, name, list_type, app_name, package_name, describe
+    	(list_type = whitelist)
+    	params: sid, id, name, list_type, describe, phone_func(值为0/1), system_app(值为0/1), 
+    			package_name(数组格式为数组["package1", "package2"])
+
+ 白名单默认规则
+ 	1. 添加规则
+ 	/p/app/addRuleList
+ 		post
+ 		params: sid, rule_type(值为phone/system_app), package_name(值为字符串)
+
+ 	2. 删除规则
+ 	/p/app/delRuleList
+ 		post
+ 		params: sid, rule_type(值为phone/system_app), package_name(值为列表[])
+
+ 	3. 查看规则
+ 	/p/app/showRuleList
+ 		get 
+ 		params: sid, rule_type(值为phone/system_app)
+
+
+
+ 应用策略:
+
+policy_type :  blackapp(黑名单策略), whiteapp(白名单策略), limitaccess(限制访问策略)
+
+  	/p/org/uploadAppPolicy
+  		post
+  		(policy_type = blackapp)
+  		params: sid, name, policy_type, black_id(值为数组[id1, id2, id3])
+  		(policy_type = whiteapp)
+  		params: sid, name, policy_type, white_id(值为数组[id1, id2, id3])
+  		(policy_type = limitaccess)
+  		params: sid, name, policy_type, limit, site_range, time_limit, app_list
+
+  	/p/org/updateAppPolicy
+  		post
+  		(policy_type = blackapp)
+  		params: sid, id, name, policy_type, black_id(值为数组[id1, id2, id3])
+  		(policy_type = whiteapp)
+  		params: sid, id, name, policy_type, white_id(值为数组[id1, id2, id3])
+  		(policy_type = limitaccess)
+  		params: sid, id, name, policy_type, limit, site_range, time_limit, app_list
+
+  	/p/org/deleteAppPolicy
+  		post 
+  		params: sid, ids, policy_type(blackapp, whiteapp, limitaccess)
+
+  	/p/org/onBlackList
+  		返回值改变 whitelist=[], blacklist=[]
+
+  	/p/org/appAuthList
+
+  	/p/org/listAppPolicy
+
+  	/p/org/changeAppPolicyStatus
+
+
+  围栏策略：
+  	1. 显示黑白名单策略
+  	/p/org/onAppPolicy
+  		get 
+  		params: sid
+
+  	2. 添加围栏策略接口
+  	/p/org/uploadFencePolicy
+  		修改in_fence/out_fence值的类型，详见时间围栏策略／地理围栏策略信息
+
+  	/p/org/updateFencePolicy
+  		修改in_fence/out_fence值的类型，详见时间围栏策略／地理围栏策略信息
+
+
+
+ SecSpace版本管理
+ 	详见SecSpace版本管理接口文档

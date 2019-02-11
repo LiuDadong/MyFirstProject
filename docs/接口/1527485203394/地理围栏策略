@@ -1,0 +1,44 @@
+地理围栏策略：
+
+{
+基本信息
+"id" : 12, 
+"name" : "地理围栏策略",
+"policy_type" : "geofence"
+
+"status" : 1	 (默认开启)
+"creator" :	admin
+"available" : 0,   
+"update_time" : "2017-07-17 18:28:44", 
+
+"create_time" : "2017-07-17 18:26:27", 
+"md5": 
+
+围栏限制
+"site_range": {
+		"site": "116.46,39.92",
+		"range": "2"
+	}
+
+围栏内策略
+# "in_fence": 23,(设备策略id)
+"in_fence": {
+		"dev_policy": 12,
+		"app_policy": 13   没有为-1
+	}
+
+围栏外策略
+# "out_fence": 24(设备策略id)
+"out_fence": {
+		"dev_policy": 12,
+		"app_policy": 13	没有为-1
+	}
+
+"gps" : 1
+
+"wifi_limit" : {
+		 "open": 1,
+		 "ssid": ["secspace", "secspace_5G"]
+	}
+
+}

@@ -1,0 +1,32 @@
+管理端：
+	IOS
+
+应用管理
+  1. 应用上传(o) (f)
+  	/p/app/upload  
+
+  2. 应用修改 (o) (f)
+  			
+  	/p/app/modify  
+
+
+  3. 显示所有应用(o) (f)
+  	/p/app/list   
+  	应用商店页面，提供查看筛选功能(显示所有应用／显示android应用／显示ios应用)
+
+
+  4. 应用授权(o) (f)
+  	/p/org/authApp   
+
+
+  5. 删除应用(o) (f)
+  	/p/app/del
+
+
+  6. 根据应用包名查看安装信息
+  	/p/app/devByUserId (o) (f)
+
+
+应用策略：
+	/p/org/appList
+

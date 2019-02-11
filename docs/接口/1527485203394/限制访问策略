@@ -1,0 +1,34 @@
+{
+基本信息
+"id" : 12, 
+
+"name" : "限制访问应用策略",
+"policy_type" : "limitaccess",
+"limit": "geo", ("geo地理限制", "time时间限制", "both都限制")
+
+"status" : 1,	 (默认开启)
+"creator" :	admin,
+"available" : 1,   
+"update_time" : "2017-07-17 18:28:44", 
+"create_time" : "2017-07-17 18:26:27", 
+"md5": 
+
+地理限制
+"site_range": {
+		"site": "116.46,39.92",
+		"range": "2"
+	}
+
+时间限制
+"time_limit": {
+	"repeat_type": 1, 			重复类型 : 1每周／2每日／3工作日／4特定日期
+	"start_date": "2017-07-17", 开始日期
+	"stop_date": "2017-07-17",	结束日期
+	"start_time": "18:28:44",	开始时间
+	"stop_time": "18:26:27",	结束时间
+	"weekday": 3,			    若重复类型为每周，则传星期的值 : 1周一／2周二／3周三／4周四／5周五／6周六／7周日
+	}
+
+已添加应用
+"app_list": ["package_name1", "package_name2", "package_name3"]
+}

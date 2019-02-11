@@ -1,0 +1,16 @@
+{
+基本信息
+"id" : 12, 
+
+"name" : "白名单应用策略",
+"policy_type" : "whiteapp",
+"white_id": [1,2,3],
+
+"status" : 1,	 (默认开启)
+"creator" :	admin,
+"available" : 1,   
+"update_time" : "2017-07-17 18:28:44", 
+
+"create_time" : "2017-07-17 18:26:27", 
+"md5": 
+}
